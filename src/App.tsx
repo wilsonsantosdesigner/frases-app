@@ -5,6 +5,7 @@ import logo from './assets/logo.png'
 function App() {
 
   const [textFrase, setTextFrase] = useState('')
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState(0)
 
   const allFrases = [
     {
@@ -37,24 +38,47 @@ function App() {
 
   ]
 
-return (
-  <div className='container'>
-    <img className='logo' src={logo} alt="Logo" />
+  function handleSwitchCategory(index: number) {
+    setCategoriaSelecionada(index)
 
-    <h2 className='title'>Categorias</h2>
+  }
 
-    <section className='category-area'>
-      <button className='category-button' >Motivação</button>
-      <button className='category-button' >Bem estar</button>
-    </section>
+  function gerarFrase() {
+    const randomIndex = Math.floor(Math.random() * allFrases[categoriaSelecionada].frase.length)
+    setTextFrase(allFrases[categoriaSelecionada].frase[randomIndex])
+  }
 
-    <button className='button-frase'>Gerar Frase</button>
 
-    {textFrase !== '' && (
-      <p className='texto-frase'>{textFrase}</p>
-    )}
-  </div>
-)
+  return (
+    <div className='container'>
+      <img className='logo' src={logo} alt="Logo" />
+
+      <h2 className='title'>Categorias</h2>
+
+      <section className='category-area'>
+        {allFrases.map((item, index) => (
+          <button 
+            key={item.id} 
+            className='category-button'
+            style={{ 
+              borderWidth: item.nome === allFrases[categoriaSelecionada].nome ? 2 : 0,
+              borderColor: "#1fa4db"
+            }} 
+              onClick={() => handleSwitchCategory(index)}
+            >
+            {item.nome}
+          </button>
+        ))}
+
+      </section>
+
+      <button  onClick={() => gerarFrase()} className='button-frase'>Gerar Frase</button>
+
+      {textFrase !== '' && (
+        <p className='texto-frase'>{textFrase}</p>
+      )}
+    </div>
+  )
 }
 
 export default App

@@ -45,7 +45,7 @@ function App() {
 
   function gerarFrase() {
     const randomIndex = Math.floor(Math.random() * allFrases[categoriaSelecionada].frase.length)
-    setTextFrase(allFrases[categoriaSelecionada].frase[randomIndex])
+    setTextFrase(`"${allFrases[categoriaSelecionada].frase[randomIndex]}"`)
   }
 
 
